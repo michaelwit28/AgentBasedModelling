@@ -10,7 +10,7 @@ rm(list=ls())
 # We assume that productivity of an agent (which directly translates to firm's returns) can be expressed as:
 # Pi = (base i) + (pay i) * (beta i) + (extra effort i) + (error i)
 
-# These terms will be explained step by step
+# These terms will be explained as we go.
 
 # Create Agent characteristics
 
@@ -60,7 +60,7 @@ table = data.frame(agents,
                    sd)
 
 
-# Lets assume employees increase their effors according to logarithmic function
+# Lets assume employees increase their effors according to a logarithmic function
 plot(1:100, log2(1:100), type = 'l', col = 'blue',
      main = 'Low performance aversion',
      xlab = 'Distance from target',
@@ -68,7 +68,7 @@ plot(1:100, log2(1:100), type = 'l', col = 'blue',
 
 
 # Say some tests are conducted and different aversion parameters are obtained for each employee.
-# These will go into the log function. The higher the value the more driven the employee to increase
+# These will go into the log function. The higher the value the more driven the employee is to increase
 # their efforts after underperforming.
 aversion_param <- c(2,1,2,2.5,3)
 
@@ -132,7 +132,7 @@ sum(projected_productivity)/10000 - 3*5 # 339.34
 # additional plot for visualization
 plot(1:36, total_productivity, type = 'l', col = "seagreen")
 
-# In this case we find that the expected returns after 36 months are greater by approximately 100 per month after the pay rise.
+# In this case we find that the expected returns after 36 months are greater by approximately 1 hundred per month after the pay rise.
 
 
 
