@@ -3,11 +3,16 @@ rm(list=ls())
 agents <- c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20)
 money <- rep(100, 20)
 
+# Two random agents engage in a gamble in which each bets a random amount between [1] and [5] and
+# has a random chance to win the other player's bet. The gamble can be declined by paying [1] which requires
+# paying [1] to the other player. If both players decline there is no change in their respective wealth. The gambles
+# are evaluated against the decline fee according to different strategy profiles.
 
-# Define different strategy profiles 1-loss averse strong, 2-loss averse mild, 3-rational
+
+# Define different strategy profiles 1-loss averse strong, 2-loss averse mild, 3-rational, 4-risk seeking
 strat <- c(rep(1,5), rep(2,5), rep(3,5), rep(4,5))
 
-# Loss averse
+# Loss aversion function
 loss_aversion <- function(x, lambda, alpha){
   y <- ifelse(x >= 0,
               x^alpha, # For gains
@@ -15,8 +20,57 @@ loss_aversion <- function(x, lambda, alpha){
   return(y)
 }
 
+# Visualize individual preferences
+x <- seq(-50, 50, 1)
+
+# Strong loss aversion
+y <- ifelse(x >= 0,
+            x^0.9, # For gains
+            -2.5 * (-x)^0.9) # For losses
+# Plot the function
+plot(x, y, type = "l", col = "blue", lwd = 2,
+     main = "Strong Loss Aversion",
+     xlab = "Expected Returns", ylab = "Subjective Utility",
+     ylim = c(min(y), max(y)))
+# Add grid for better visualization
+grid()
+
+# Mild loss aversion
+y <- ifelse(x >= 0,
+            x^0.9, # For gains
+            -1.5 * (-x)^0.9) # For losses
+# Plot the function
+plot(x, y, type = "l", col = "skyblue", lwd = 2,
+     main = "Mild Loss Aversion",
+     xlab = "Expected Returns", ylab = "Subjective Utility",
+     ylim = c(min(y), max(y)))
+# Add grid for better visualization
+grid()
+
+# Optimal preferences
+y <- x
+# Plot the function
+plot(x, y, type = "l", col = "darkgreen", lwd = 2,
+     main = "Optimal ",
+     xlab = "Expected Returns", ylab = "Subjective Utility",
+     ylim = c(min(y), max(y)))
+# Add grid for better visualization
+grid()
+
+# Risk seeking
+y <- ifelse(x >= 0,
+            x^1.1, # For gains
+            -0.8 * (-x)^1.1) # For losses
+# Plot the function
+plot(x, y, type = "l", col = "brown", lwd = 2,
+     main = "Strong Loss Aversion",
+     xlab = "Expected Returns", ylab = "Subjective Utility",
+     ylim = c(min(y), max(y)))
+# Add grid for better visualization
+grid()
 
 
+# Define the gamble function
 GambleGamble <- function(x, y, z) {
   agents <- x
   wealth <- y
@@ -89,6 +143,8 @@ GambleGamble <- function(x, y, z) {
   return(wealth)
 }
 
+# We want to see how different strategy profiles perform against each other over the long run
+
 num_steps <- 10000
 # Initialize a data frame to store the wealth at each step
 wealth_history <- data.frame(step = 1:num_steps, matrix(0, nrow = num_steps, ncol = length(agents)))
@@ -117,10 +173,7 @@ ggplot(wealth_long, aes(x = step, y = wealth, color = as.factor(profile), group 
   labs(title = "Wealth Changes Over Time", x = "Step", y = "Wealth", color = "Profile") +
   theme_minimal()
 
-# Plot individual players
-wealth_long <- reshape2::melt(wealth_history, id.vars = "step", variable.name = "agent", value.name = "wealth")
-ggplot(wealth_long, aes(x = step, y = wealth, color = agent), legend = FALSE) +
-  geom_line() +
-  labs(title = "Wealth Changes Over Time", x = "Step", y = "Wealth") +
-  theme_minimal()
+# As expected optimal play generates the best expected outcomes while highly loss averse players lose most.
+# We can play around by changing parameters or proportions of different players in the population and inspecting
+# how it affects the expected outcomes.
 

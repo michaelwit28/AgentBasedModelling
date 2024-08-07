@@ -1,6 +1,7 @@
 #Agent Based Modelling - Loss aversion, Patience & Gambling
+# Supplementary code with different functions for loss aversion
 
-
+rm(list = ls())
 #Loss aversion
 
 x <- seq(-50,50,1)
@@ -34,7 +35,7 @@ plot(x, y, type = "l", col = "blue", lwd = 2,
 grid()
 
 
-
+# Define the function
 loss_aversion <- function(x){
   lambda <- 2
   alpha <- 0.9
@@ -62,7 +63,3 @@ LA <- function(x, lambda, alpha){
               -lambda * (-x)^alpha) # For losses
   return(y)
 }
-
-
-#
-
