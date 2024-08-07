@@ -3,10 +3,10 @@ rm(list=ls())
 agents <- c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20)
 money <- rep(100, 20)
 
-# Two random agents engage in a gamble in which each bets a random amount between [1] and [5] and
-# has a random chance to win the other player's bet. The gamble can be declined by paying [1] which requires
-# paying [1] to the other player. If both players decline there is no change in their respective wealth. The gambles
-# are evaluated against the decline fee according to different strategy profiles.
+# Two random agents engage in a gamble in which each bets a random amount between [1] and [5] and has a random chance
+# to win the other player's bet. The gamble can be declined which requires paying [1] to the other player. If both players
+# decline there is no change in their respective wealth. The gambles are evaluated individually by each agent against the decline fee
+# according to different strategy profiles.
 
 
 # Define different strategy profiles 1-loss averse strong, 2-loss averse mild, 3-rational, 4-risk seeking
@@ -174,6 +174,6 @@ ggplot(wealth_long, aes(x = step, y = wealth, color = as.factor(profile), group 
   theme_minimal()
 
 # As expected optimal play generates the best expected outcomes while highly loss averse players lose most.
-# We can play around by changing parameters or proportions of different players in the population and inspecting
+# We can play around by changing parameters or proportions of different players in the population and inspect
 # how it affects the expected outcomes.
 
