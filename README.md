@@ -1,9 +1,10 @@
 # AgentBasedModelling
 This repository contains code for agent based models and simulations.
 
-Data is generated from within the files. All information and descriptions of a specific model are provided in the files.
+Data is generated from within the files. All information and details about the specific models are explained in the files.
 
-Project description:
+
+Project descriptions:
 
 ABM_organisation_example - agent based model for evaluating the long-term efficiency of a pay rise programme for employee productivity in a competetive environment.
 
